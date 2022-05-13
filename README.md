@@ -22,7 +22,6 @@
  One of the best Spark memory optimization techniques when dealing with partitions and executors is to first choose the number of partitions, then pick an executor size to meet the memory requirements. | The following parameters help to fine tune the overall optimized configuration. We recommend to leave them as defaults.  <p> </br>  Parallelism Per Core :  The level of parallelism per allocated core. This field is used to determine the spark.default.parallelism configuration. <p> </br>  Memory overhead (%) : The percentage of memory in each executor that will be reserved for spark.executor.memoryOverhead.                                                                                                                     
 
 
-<p> </br>
 
 #### Reference Table
 
