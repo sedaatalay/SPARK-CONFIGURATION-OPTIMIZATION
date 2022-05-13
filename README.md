@@ -44,7 +44,8 @@ Total memory (GB) : Default number of partitions in RDDs. We recommend that you 
 
 #### Using Configs
 
-##### Now that we have the proper numbers for our configs, using them is fairly simple. Below, I’ve demonstrated 2 different ways the configs might be used:
+
+##### Now that we have the proper numbers for our configs, using them is fairly simple. Below, I’ve demonstrated 2 different ways the configs might be used:
 
 <p> </br>  
 
