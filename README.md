@@ -31,7 +31,6 @@
 #### Spark Configs
 
 ##### Now that we have selected an optimal number of Executors Per Node, we are ready to generate the Spark configs with which we will run our job. We enter the optimal number of executors in the Selected Executors Per Node field. The correct settings will be generated automatically.
-Now that we have selected an optimal number of Executors Per Node, we are ready to generate the Spark configs with which we will run our job. We enter the optimal number of executors in the Selected Executors Per Node field. The correct settings will be generated automatically.
 
 <img width="989" alt="Ekran Resmi 2022-05-13 18 30 29" src="https://user-images.githubusercontent.com/91700155/168317189-341b5d4a-944d-45cd-ac04-b986470434a9.png">
                                                                           
