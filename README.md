@@ -26,8 +26,6 @@
 
 ##### Once the configurable fields on the left-hand side of the image have been set to the desired values, the resultant cluster configuration will be reflected in the reference image. There is some degree of subjectivity in selecting the Executors Per Node setting that will work best for your use case, so I selected to use a reference image rather than selecting the number automatically.
 
-<p> </br> 
-
 #### Spark Configs
 
 ##### Now that we have selected an optimal number of Executors Per Node, we are ready to generate the Spark configs with which we will run our job. We enter the optimal number of executors in the Selected Executors Per Node field. The correct settings will be generated automatically.
