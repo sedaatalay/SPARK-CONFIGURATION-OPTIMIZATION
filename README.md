@@ -7,6 +7,7 @@
 
 ### Spark optimization techniques are used to modify the settings and properties of Spark to ensure that the resources are utilized properly and the jobs are executed quickly. All this ultimately helps in processing data efficiently.
 
+
 #### Configurable Fields
 
 ##### The Cluster Size fields can be changed to match your cluster’s specs. It is not recommended that you change the Additional Param fields, but some use-cases might require customization. The Cluster Size fields can be changed to match your cluster’s specs. It is not recommended that you change the Additional Param fields, but some use-cases might require customization.
