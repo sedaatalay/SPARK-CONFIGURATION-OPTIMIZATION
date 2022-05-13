@@ -1,12 +1,13 @@
 # SPARK CONFIGURATION OPTIMIZATION
 
 <p> </br>
-<p> </br>
+
 
 ## What is Spark optimization?
 
 ### Spark optimization techniques are used to modify the settings and properties of Spark to ensure that the resources are utilized properly and the jobs are executed quickly. All this ultimately helps in processing data efficiently.
 
+<p> </br> 
 
 #### Configurable Fields
 
