@@ -1,1 +1,108 @@
-# deneme
+# SPARK CONFIGURATION OPTIMIZATION
+
+
+<p> </br>
+
+What is Spark optimization?
+
+### Spark optimization techniques are used to modify the settings and properties of Spark to ensure that the resources are utilized properly and the jobs are executed quickly. All this ultimately helps in processing data efficiently.
+
+<img width="989" alt="Ekran Resmi 2022-05-13 17 20 59" src="https://user-images.githubusercontent.com/91700155/168304101-6f1496bf-4039-44ea-9824-6ff4516d116f.png">
+
+ **CLUSTER SIZE**                                                                                                                                                                                         | **ADDITIONAL PARAMS**                                                                                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+ One of the best Spark memory optimization techniques when dealing with partitions and executors is to first choose the number of partitions, then pick an executor size to meet the memory requirements. | The following parameters help to fine tune the overall optimized configuration. We recommend to leave them as defaults.  <p> </br>  Parallelism Per Core :  The level of parallelism per allocated core. This field is used to determine the spark.default.parallelism configuration. <p> </br>  Memory overhead (%) : The percentage of memory in each executor that will be reserved for spark.executor.memoryOverhead.                                                                                                                     
+
+
+<p> </br>
+                                                                                                                                                                                              
+<img width="990" alt="Ekran Resmi 2022-05-13 17 22 00" src="https://user-images.githubusercontent.com/91700155/168304250-c7474c59-229d-4eee-a0ec-872aab753c4f.png">
+
+ **CALCULATED CLUSTER RESOURCES**                                                                                                                                                                                         | **SPARK-DEFAULTS.CONF**                                                                                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+Total memory (GB) : Default number of partitions in RDDs. We recommend that you estimate the size of each partition and adjust this number accordingly using coalesce or repartition. <p> </br> Total overhead memory : Total overhead memory in the cluster. <p> </br> Total available cores : Total cluster cores availible for node containers. <p> </br> Total available memory (GB) : Total cluster memory availible for node containers. <p> </br>  Memory per executor (GB) : This total memory per executor includes the executor memory and overhead (spark.executor.memoryOverhead). <p> </br> **UNUSED RESOURCES** | spark.default.parallelism : Default number of partitions in RDDs. We recommend that you estimate the size of each partition and adjust this number accordingly using coalesce or repartition. <p> </br> spark.executor.memory (GB) : Amount of memory to use per executor process. <p> </br> spark.executor.instances : Final number of executor instances. <p> </br> spark.driver.cores : Amount of memory to use for the driver process. <p> </br>  spark.executor.cores : The number of cores to use on each executor. <p> </br> spark.driver.memory (GB) : Amount of memory to use for the driver process.  <p> </br> spark.driver.maxResultSize (GB) : Limit of total size of serialized results of all partitions for each Spark action (e.g. collect). <p> </br> spark.driver.memoryOverhead (MB) : Amount of non-heap memory to be allocated per driver process in cluster mode, in MiB unless otherwise specified. This is memory that accounts for things like VM overheads, interned strings, other native overheads, etc. This tends to grow with the container size (typically 6-10%). This option is currently supported on YARN, Mesos and Kubernetes. <p> </br> spark.executor.memoryOverhead (MB) : Amount of additional memory to be allocated per executor process in cluster mode, in MiB unless otherwise specified. This is memory that accounts for things like VM overheads, interned strings, other native overheads, etc. This tends to grow with the executor size (typically 6-10%). This option is currently supported on YARN and Kubernetes. <p> </br> spark.dynamicAllocation.enabled : Spark on YARN can dynamically scale the number of executors used for a Spark application based on the workloads. This is the configuration responsible for it. <p> </br> spark.sql.adaptive.enabled : Adaptive Query Execution is an optimization technique in Spark SQL that makes use of the runtime statistics to choose the most efficient query execution plan.
+                                                                                                        
+
+#### spark-submit
+```console
+./bin/spark-submit --name "luminousmen app" --class <app class> --master yarn --deploy-mode cluster --num-executors 14 --executor-memory 9g --executor-cores 5 --driver-memory 9g --driver-cores 5 --conf spark.default.parallelism=140 --conf spark.driver.maxResultSize=9g --conf spark.driver.memoryOverhead=921m --conf spark.executor.memoryOverhead=921m --conf spark.dynamicAllocation.enabled=false --conf spark.sql.adaptive.enabled=true <application jar>
+```
+#### aws
+```console
+"Configurations":[
+    {
+        "Classification": "yarn-site",
+        "Properties": {
+        "yarn.nodemanager.vmem-check-enabled": "false",
+        "yarn.nodemanager.pmem-check-enabled": "false"
+        }
+    },
+    {
+        "Classification": "spark",
+        "Properties": {
+            "maximizeResourceAllocation": "false"
+        }
+    },
+    {
+        "Classification": "spark-defaults",
+        "Properties": {
+            "spark.dynamicAllocation.enabled": "false",
+            "spark.sql.adaptive.enabled": "true",
+            "spark.driver.memory": "9G",
+            "spark.executor.memory": "9G",
+            "spark.executor.cores": "5",
+            "spark.executor.instances": "14",
+            "spark.executor.memoryOverhead": "921M",
+            "spark.driver.memoryOverhead": "921M",
+            "spark.memory.fraction": "0.80",
+            "spark.executor.extraJavaOptions": "-XX:+UseG1GC -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -XX:InitiatingHeapOccupancyPercent=35 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:OnOutOfMemoryError='kill -9 %p'",
+            "spark.driver.extraJavaOptions": "-XX:+UseG1GC -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -XX:InitiatingHeapOccupancyPercent=35 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:OnOutOfMemoryError='kill -9 %p'",
+            "spark.yarn.scheduler.reporterThread.maxFailures": "5",
+            "spark.storage.level": "MEMORY_AND_DISK_SER",
+            "spark.rdd.compress": "true",
+            "spark.shuffle.compress": "true",
+            "spark.shuffle.spill.compress": "true",
+            "spark.default.parallelism": "140"
+        }
+    },
+    {
+        "Classification": "mapred-site",
+        "Properties": {
+            "mapreduce.map.output.compress": "true"
+        }
+    },
+    {
+        "Classification": "hadoop-env",
+        "Configurations": [{
+            "Classification": "export",
+            "Configurations": [],
+            "Properties": {
+                "JAVA_HOME": "/usr/lib/jvm/java-1.8.0"
+            }
+        }],
+        "Properties": {}
+    },
+    {
+        "Classification": "spark-env",
+        "Configurations": [{
+            "Classification": "export",
+            "Properties": {
+                "JAVA_HOME": "/usr/lib/jvm/java-1.8.0"
+            }
+        }],
+        "Properties": {}
+    }
+]
+```
+
+<p> </br>
+<img width="886" alt="Ekran Resmi 2022-05-13 15 57 52" src="https://user-images.githubusercontent.com/91700155/168294128-e80b5481-56e2-4690-b93a-3827c26c614e.png">
+
+<p> </br>
+
+
+<p> </br>
+<p> </br>
+
+Thank you :)
+
