@@ -1,4 +1,4 @@
-# SPARK CONFIGURATION OPTIMIZATION
+# Spark Configuration Optimization
 
 <p> </br>
 
